@@ -96,10 +96,10 @@ function Questionnaire() {
       attendance: attendanceText,
       has_companion: formData.hasGuest === 'yes' ? 'Да' : 'Не',
       guest_name: formData.hasGuest === 'yes' ? (formData.guestName || '') : '',
-      children_count: parseInt(formData.childrenCount, 10) || 0,
-      has_children: hasChildren,
-      main_guest_menu: menuText,
       companion_menu: formData.hasGuest === 'yes' ? guestMenuText : '',
+      main_guest_menu: menuText,
+      has_children: hasChildren,
+      children_count: parseInt(formData.childrenCount, 10) || 0,
       special_requirements: formData.specialRequirements || ''
     }
 
