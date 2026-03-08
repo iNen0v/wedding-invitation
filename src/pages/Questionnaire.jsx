@@ -30,28 +30,34 @@ function Questionnaire() {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-    
-    // Ако се промени броя на децата, обновяваме масива
-    if (name === 'childrenCount') {
-      const count = parseInt(value) || 0
-      const currentChildren = prev.children || []
-      const newChildren = []
-      for (let i = 0; i < count; i++) {
-        newChildren[i] = currentChildren[i] || { name: '', menu: '' }
+    setFormData(prev => {
+      const updatedData = { ...prev, [name]: value }
+      
+      // Ако се промени броя на децата, обновяваме масива
+      if (name === 'childrenCount') {
+        const count = parseInt(value) || 0
+        const currentChildren = prev.children || []
+        const newChildren = []
+        for (let i = 0; i < count; i++) {
+          newChildren[i] = currentChildren[i] || { name: '', menu: '' }
+        }
+        updatedData.children = newChildren
       }
-      setFormData(prev => ({ ...prev, children: newChildren }))
-    }
-    
-    // Ако се промени hasGuest на "no", изчистваме данните за гост
-    if (name === 'hasGuest' && value === 'no') {
-      setFormData(prev => ({ ...prev, guestName: '', guestMenu: '' }))
-    }
-    
-    // Ако се промени hasChildren на "no", изчистваме данните за деца
-    if (name === 'hasChildren' && value === 'no') {
-      setFormData(prev => ({ ...prev, childrenCount: '', children: [] }))
-    }
+      
+      // Ако се промени hasGuest на "no", изчистваме данните за гост
+      if (name === 'hasGuest' && value === 'no') {
+        updatedData.guestName = ''
+        updatedData.guestMenu = ''
+      }
+      
+      // Ако се промени hasChildren на "no", изчистваме данните за деца
+      if (name === 'hasChildren' && value === 'no') {
+        updatedData.childrenCount = ''
+        updatedData.children = []
+      }
+      
+      return updatedData
+    })
   }
   
   const handleChildChange = (index, field, value) => {
