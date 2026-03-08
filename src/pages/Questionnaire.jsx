@@ -84,12 +84,23 @@ function Questionnaire() {
           ? 'Веган'
           : 'Не е избрано'
 
+    // Форматиране на присъствие и деца
+    const attendanceText = formData.attendance === 'yes' ? 'С радост потвърждавам' : 'За съжаление няма да мога'
+    const childrenText = formData.hasChildren === 'yes' && formData.children?.length > 0
+      ? formData.children.map((child, idx) =>
+          `Дете ${idx + 1}: ${child.name || 'Без име'} - ${child.menu === 'kids' ? 'Детско' : child.menu === 'kids-no-allergens' ? 'Детско без алергени' : 'Не е избрано'}`
+        ).join('; ')
+      : 'Няма'
+
     // Подготовка на данните за webhook
     const data = {
       full_name: formData.name || '',
       contact: formData.contact || '',
+      attendance: attendanceText,
       has_companion: formData.hasGuest === 'yes' ? 'Да' : 'Не',
+      guest_name: formData.hasGuest === 'yes' ? (formData.guestName || '') : '',
       children_count: parseInt(formData.childrenCount, 10) || 0,
+      children: childrenText,
       main_guest_menu: menuText,
       companion_menu: formData.hasGuest === 'yes' ? guestMenuText : '',
       special_requirements: formData.specialRequirements || ''
