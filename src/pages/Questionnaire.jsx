@@ -67,34 +67,44 @@ function Questionnaire() {
     setIsSubmitting(true)
     setSubmitStatus(null)
     
-    // Преобразуване на меню от кодове към текст
+    // Преобразуване на меню от кодове към текст (болгарски)
     const menuText = formData.menu === 'meat' 
       ? 'Месо' 
       : formData.menu === 'vegetarian' 
         ? 'Вегетарианско' 
-        : 'Веган'
+        : formData.menu === 'vegan'
+          ? 'Веган'
+          : 'Не е избрано'
     
     const guestMenuText = formData.guestMenu === 'meat' 
       ? 'Месо' 
       : formData.guestMenu === 'vegetarian' 
         ? 'Вегетарианско' 
-        : 'Веган'
+        : formData.guestMenu === 'vegan'
+          ? 'Веган'
+          : 'Не е избрано'
 
+    // Подготовка на данните за webhook
     const data = {
       full_name: formData.name || '',
       contact: formData.contact || '',
-      has_companion: formData.hasGuest === 'yes',
+      has_companion: formData.hasGuest === 'yes' ? 'Да' : 'Не',
       children_count: parseInt(formData.childrenCount, 10) || 0,
-      main_guest_menu: menuText || 'Не е избрано',
+      main_guest_menu: menuText,
       companion_menu: formData.hasGuest === 'yes' ? guestMenuText : '',
       special_requirements: formData.specialRequirements || ''
     }
+
+    console.log('📤 Изпращам към Zapier:', data)
 
     try {
       if (ZAPIER_WEBHOOK_URL && ZAPIER_WEBHOOK_URL.trim() !== '') {
         const response = await fetch(ZAPIER_WEBHOOK_URL, {
           method: 'POST',
           mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(data)
         })
         console.log('✅ Webhook отговор:', response)
@@ -103,11 +113,12 @@ function Questionnaire() {
       setIsSubmitting(false)
       setSubmitStatus('success')
       
+      // Пренасочване след 2 секунди
       setTimeout(() => {
         navigate('/')
       }, 2000)
     } catch (error) {
-      console.error('❌ Грешка:', error)
+      console.error('❌ Грешка при изпращане:', error)
       setIsSubmitting(false)
       setSubmitStatus('error')
     }
