@@ -70,14 +70,13 @@ function Questionnaire() {
     setIsSubmitting(true)
     setSubmitStatus(null)
     
-    // Преобразуване на меню от кодове към текст
     const menuText = formData.menu === 'meat' 
       ? 'Месо' 
       : formData.menu === 'vegetarian' 
         ? 'Вегетарианско' 
         : formData.menu === 'vegan'
           ? 'Веган'
-          : 'Не е избрано'
+          : ''
     
     const guestMenuText = formData.guestMenu === 'meat' 
       ? 'Месо' 
@@ -85,7 +84,7 @@ function Questionnaire() {
         ? 'Вегетарианско' 
         : formData.guestMenu === 'vegan'
           ? 'Веган'
-          : 'Не е избрано'
+          : ''
 
     const attendanceText = formData.attendance === 'yes'
       ? 'С радост потвърждавам'
@@ -96,17 +95,28 @@ function Questionnaire() {
     const data = {
       full_name: formData.name || '',
       contact: formData.contact || '',
-      attendance: attendanceText,
+      attendance: attendanceText || '',
       has_companion: formData.hasGuest === 'yes' ? 'Да' : 'Не',
-      guest_name: formData.hasGuest === 'yes' ? (formData.guestName || '') : '',
-      companion_menu: formData.hasGuest === 'yes' ? guestMenuText : '',
-      main_guest_menu: menuText,
+      guest_name: formData.guestName || '',
+      companion_menu: guestMenuText || '',
+      main_guest_menu: menuText || '',
       has_children: hasChildren,
       children_count: parseInt(formData.childrenCount, 10) || 0,
       special_requirements: formData.specialRequirements || ''
     }
 
-    console.log('📤 Изпращам към Zapier:', data)
+    console.log('==================== WEBHOOK DATA ====================')
+    console.log('full_name:', data.full_name)
+    console.log('contact:', data.contact)
+    console.log('attendance:', data.attendance)
+    console.log('has_companion:', data.has_companion)
+    console.log('guest_name:', data.guest_name)
+    console.log('companion_menu:', data.companion_menu)
+    console.log('main_guest_menu:', data.main_guest_menu)
+    console.log('has_children:', data.has_children)
+    console.log('children_count:', data.children_count)
+    console.log('special_requirements:', data.special_requirements)
+    console.log('====================================================')
 
     try {
       if (ZAPIER_WEBHOOK_URL && ZAPIER_WEBHOOK_URL.trim() !== '') {
@@ -118,13 +128,12 @@ function Questionnaire() {
           },
           body: JSON.stringify(data)
         })
-        console.log('✅ Webhook отговор:', response)
+        console.log('✅ Webhook sent successfully')
       }
 
       setIsSubmitting(false)
       setSubmitStatus('success')
       
-      // Пренасочване след 2 секунди
       setTimeout(() => {
         navigate('/')
       }, 2000)
