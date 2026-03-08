@@ -84,10 +84,11 @@ function Questionnaire() {
           ? 'Веган'
           : 'Не е избрано'
 
-    // attendance текст
     const attendanceText = formData.attendance === 'yes'
       ? 'С радост потвърждавам'
       : 'За съжаление няма да мога'
+
+    const hasChildren = parseInt(formData.childrenCount, 10) > 0 ? 'Да' : 'Не'
 
     const data = {
       full_name: formData.name || '',
@@ -96,6 +97,7 @@ function Questionnaire() {
       has_companion: formData.hasGuest === 'yes' ? 'Да' : 'Не',
       guest_name: formData.hasGuest === 'yes' ? (formData.guestName || '') : '',
       children_count: parseInt(formData.childrenCount, 10) || 0,
+      has_children: hasChildren,
       main_guest_menu: menuText,
       companion_menu: formData.hasGuest === 'yes' ? guestMenuText : '',
       special_requirements: formData.specialRequirements || ''
