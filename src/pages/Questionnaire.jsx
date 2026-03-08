@@ -67,67 +67,49 @@ function Questionnaire() {
     setIsSubmitting(true)
     setSubmitStatus(null)
     
-    // Подготвяне на данните
-    const attendanceText = formData.attendance === 'yes' 
-      ? 'С радост потвърждавам' 
-      : 'За съжаление няма да мога'
-    
+    // Преобразуване на меню от кодове към текст
     const menuText = formData.menu === 'meat' 
       ? 'Месо' 
       : formData.menu === 'vegetarian' 
         ? 'Вегетарианско' 
-        : formData.menu === 'vegan' 
-          ? 'Веган' 
-          : 'Не е избрано'
+        : 'Веган'
     
     const guestMenuText = formData.guestMenu === 'meat' 
       ? 'Месо' 
       : formData.guestMenu === 'vegetarian' 
         ? 'Вегетарианско' 
-        : formData.guestMenu === 'vegan' 
-          ? 'Веган' 
-          : 'Не е избрано'
-    
-    // Форматиране на децата
-    const childrenText = formData.hasChildren === 'yes' && formData.children.length > 0
-      ? formData.children.map((child, idx) => 
-          `Дете ${idx + 1}: ${child.name || 'Без име'} - ${child.menu === 'kids' ? 'Детско' : child.menu === 'kids-no-allergens' ? 'Детско без алергени' : 'Не е избрано'}`
-        ).join('; ')
-      : 'Няма'
+        : 'Веган'
+
+    const data = {
+      full_name: formData.name || '',
+      contact: formData.contact || '',
+      has_companion: formData.hasGuest === 'yes',
+      children_count: parseInt(formData.childrenCount, 10) || 0,
+      main_guest_menu: menuText || 'Не е избрано',
+      companion_menu: formData.hasGuest === 'yes' ? guestMenuText : '',
+      special_requirements: formData.specialRequirements || ''
+    }
+
+    console.log('📤 Изпращам към Zapier:', data)
 
     try {
-      // Изпращане към Zapier като form-urlencoded (избягва CORS preflight от браузера)
-      const params = new URLSearchParams()
-      params.append('full_name', formData.name || '')
-      params.append('contact', formData.contact || '')
-      params.append('has_companion', formData.hasGuest === 'yes' ? 'true' : 'false')
-      params.append('children_count', String(parseInt(formData.childrenCount, 10) || 0))
-      params.append('main_guest_menu', menuText)
-      params.append('companion_menu', formData.hasGuest === 'yes' ? guestMenuText : '')
-      params.append('special_requirements', formData.specialRequirements || '')
-      params.append('attendance', attendanceText)
-      params.append('guest_name', formData.hasGuest === 'yes' ? (formData.guestName || '') : '')
-      params.append('children', childrenText)
-
       if (ZAPIER_WEBHOOK_URL && ZAPIER_WEBHOOK_URL.trim() !== '') {
         const response = await fetch(ZAPIER_WEBHOOK_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: params.toString()
+          mode: 'no-cors',
+          body: JSON.stringify(data)
         })
-        if (!response.ok) {
-          throw new Error(`Zapier върна ${response.status}: ${response.statusText}`)
-        }
+        console.log('✅ Webhook отговор:', response)
       }
 
       setIsSubmitting(false)
       setSubmitStatus('success')
       
-      // Пренасочи след 2 секунди
       setTimeout(() => {
         navigate('/')
       }, 2000)
     } catch (error) {
+      console.error('❌ Грешка:', error)
       setIsSubmitting(false)
       setSubmitStatus('error')
     }
