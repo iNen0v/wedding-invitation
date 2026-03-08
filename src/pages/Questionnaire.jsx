@@ -90,8 +90,6 @@ function Questionnaire() {
       special_requirements: formData.specialRequirements || ''
     }
 
-    console.log('📤 Изпращам към Zapier:', data)
-
     try {
       if (ZAPIER_WEBHOOK_URL && ZAPIER_WEBHOOK_URL.trim() !== '') {
         const response = await fetch(ZAPIER_WEBHOOK_URL, {
