@@ -57,14 +57,6 @@ function Questionnaire() {
     })
   }
 
-  const handleChildChange = (index, field, value) => {
-    setFormData((current) => {
-      const newChildren = [...(current.children || [])]
-      newChildren[index] = { ...newChildren[index], [field]: value }
-      return { ...current, children: newChildren }
-    })
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
@@ -325,43 +317,6 @@ function Questionnaire() {
                         className="text-input"
                       />
                     </div>
-                    
-                    {formData.children.map((child, index) => (
-                      <div key={index} className="child-group">
-                        <h4>Дете {index + 1}</h4>
-                        <div className="input-group">
-                          <label>Име на дете {index + 1}</label>
-                          <input
-                            type="text"
-                            value={child.name || ''}
-                            onChange={(e) => handleChildChange(index, 'name', e.target.value)}
-                            placeholder={`Име на дете ${index + 1}`}
-                            className="text-input"
-                          />
-                        </div>
-                        <div className="input-group">
-                          <label>Меню за дете {index + 1}</label>
-                          <div className="radio-group">
-                            <label className="radio-label">
-                              <input 
-                                type="radio" 
-                                checked={child.menu === 'kids'}
-                                onChange={() => handleChildChange(index, 'menu', 'kids')}
-                              />
-                              <span>Детско</span>
-                            </label>
-                            <label className="radio-label">
-                              <input 
-                                type="radio" 
-                                checked={child.menu === 'kids-no-allergens'}
-                                onChange={() => handleChildChange(index, 'menu', 'kids-no-allergens')}
-                              />
-                              <span>Детско без алергени</span>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
                   </div>
                 )}
               </div>
