@@ -30,13 +30,12 @@ function Questionnaire() {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData(prev => {
-      const updatedData = { ...prev, [name]: value }
+    setFormData((current) => {
+      const updatedData = { ...current, [name]: value }
       
-      // Ако се промени броя на децата, обновяваме масива
       if (name === 'childrenCount') {
-        const count = parseInt(value) || 0
-        const currentChildren = prev.children || []
+        const count = parseInt(value, 10) || 0
+        const currentChildren = current.children || []
         const newChildren = []
         for (let i = 0; i < count; i++) {
           newChildren[i] = currentChildren[i] || { name: '', menu: '' }
@@ -44,13 +43,11 @@ function Questionnaire() {
         updatedData.children = newChildren
       }
       
-      // Ако се промени hasGuest на "no", изчистваме данните за гост
       if (name === 'hasGuest' && value === 'no') {
         updatedData.guestName = ''
         updatedData.guestMenu = ''
       }
       
-      // Ако се промени hasChildren на "no", изчистваме данните за деца
       if (name === 'hasChildren' && value === 'no') {
         updatedData.childrenCount = ''
         updatedData.children = []
@@ -59,12 +56,12 @@ function Questionnaire() {
       return updatedData
     })
   }
-  
+
   const handleChildChange = (index, field, value) => {
-    setFormData(prev => {
-      const newChildren = [...prev.children]
+    setFormData((current) => {
+      const newChildren = [...(current.children || [])]
       newChildren[index] = { ...newChildren[index], [field]: value }
-      return { ...prev, children: newChildren }
+      return { ...current, children: newChildren }
     })
   }
 
