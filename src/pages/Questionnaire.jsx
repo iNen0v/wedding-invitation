@@ -94,20 +94,6 @@ function Questionnaire() {
           `Дете ${idx + 1}: ${child.name || 'Без име'} - ${child.menu === 'kids' ? 'Детско' : child.menu === 'kids-no-allergens' ? 'Детско без алергени' : 'Не е избрано'}`
         ).join('; ')
       : 'Няма'
-    
-    const submissionData = {
-      name: formData.name || 'Не е попълнено',
-      contact: formData.contact || 'Не е попълнено',
-      attendance: attendanceText,
-      hasGuest: formData.hasGuest === 'yes' ? 'Да' : 'Не',
-      guestName: formData.hasGuest === 'yes' ? (formData.guestName || 'Не е попълнено') : 'Няма',
-      guestMenu: formData.hasGuest === 'yes' ? guestMenuText : 'Няма',
-      hasChildren: formData.hasChildren === 'yes' ? 'Да' : 'Не',
-      childrenCount: formData.hasChildren === 'yes' ? (formData.childrenCount || '0') : '0',
-      children: childrenText,
-      menu: menuText,
-      specialRequirements: formData.specialRequirements || 'Няма'
-    }
 
     try {
       // Изпращане към Zapier като form-urlencoded (избягва CORS preflight от браузера)
@@ -132,9 +118,6 @@ function Questionnaire() {
         if (!response.ok) {
           throw new Error(`Zapier върна ${response.status}: ${response.statusText}`)
         }
-        console.log('✅ Данни изпратени към Zapier')
-      } else {
-        console.warn('⚠️ Zapier URL не е настроен в config/googleSheets.js')
       }
 
       setIsSubmitting(false)
@@ -145,7 +128,6 @@ function Questionnaire() {
         navigate('/')
       }, 2000)
     } catch (error) {
-      console.error('Грешка при изпращане към Zapier:', error)
       setIsSubmitting(false)
       setSubmitStatus('error')
     }

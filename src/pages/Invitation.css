@@ -4,6 +4,7 @@
   margin: 0;
   position: relative;
   overflow: visible;
+  cursor: default;
 }
 
 .canva-main-container {
@@ -15,6 +16,7 @@
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
+  cursor: default;
 }
 
 .canva-main-container::before {
@@ -389,7 +391,7 @@
   backdrop-filter: blur(15px);
   position: relative;
   overflow: hidden;
-  cursor: pointer;
+  cursor: default;
 }
 
 .schedule-item::before {
@@ -492,7 +494,7 @@
   color: white;
   border: none;
   border-radius: 35px;
-  cursor: pointer;
+  cursor: default;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 8px 20px rgba(102, 187, 106, 0.4),
               0 4px 10px rgba(0, 0, 0, 0.2),
@@ -543,7 +545,7 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border: 3px solid #66bb6a;
-  cursor: pointer;
+  cursor: default;
   border-radius: 50px;
   color: #2e7d32;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -688,6 +690,7 @@
   margin: 0;
   overflow: hidden;
   border-radius: 8px;
+  cursor: default;
 }
 
 .canva-fullscreen-embed {
@@ -702,6 +705,18 @@
   pointer-events: auto;
 }
 
+/* Скрива черната лента отдолу от Canva (номера на страници 1/2) */
+.canva-bottom-cover {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  z-index: 4000;
+  pointer-events: none;
+  background: linear-gradient(to top, #f5f5f5 0%, rgba(245, 245, 245, 0.98) 70%, transparent 100%);
+}
+
 .canva-overlay-button {
   position: absolute;
   bottom: 5%;
@@ -712,7 +727,7 @@
   backdrop-filter: blur(10px);
   border: 2px solid rgba(0, 0, 0, 0.1);
   color: #555;
-  cursor: pointer;
+  cursor: default;
   z-index: 10000;
   font-size: 1.1em;
   font-weight: 700;
@@ -900,7 +915,7 @@
   color: white;
   border: none;
   border-radius: 50px;
-  cursor: pointer;
+  cursor: default;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 10px 30px rgba(102, 187, 106, 0.5),
               0 5px 15px rgba(0, 0, 0, 0.3),
@@ -1017,4 +1032,5 @@
     font-size: 1em;
   }
 }
+
 

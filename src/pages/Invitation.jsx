@@ -29,14 +29,16 @@ function Invitation() {
             loading="lazy" 
             className="canva-fullscreen-embed"
             src="https://www.canva.com/design/DAG9SwdZIwI/dcVOgO5zWI1pRZglQ8bB5Q/view?embed" 
-            allowFullScreen={true}
-            allow="fullscreen"
             title="Покана за сватба"
+            sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
             onLoad={() => setIframeLoaded(true)}
             style={{ opacity: iframeLoaded ? 1 : 0, transition: 'opacity 0.3s ease' }}
           />
         </div>
+        {/* Скрива черната лента отдолу от Canva (номера на страници) */}
+        <div className="canva-bottom-cover" aria-hidden />
         <button 
+          type="button"
           className="canva-overlay-button"
           onClick={() => navigate('/questionnaire')}
           aria-label="Потвърдете присъствието си"

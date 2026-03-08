@@ -49,7 +49,7 @@
   font-size: 20px;
   background: white;
   border: 2px solid #66bb6a;
-  cursor: pointer;
+  cursor: default;
   border-radius: 5px;
   color: #2e7d32;
 }

@@ -16,6 +16,7 @@ body {
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
+  cursor: default;
 }
 
 @keyframes gradientShift {
@@ -33,5 +34,6 @@ body {
 #root {
   width: 100%;
   min-height: 100vh;
+  cursor: default;
 }
 
