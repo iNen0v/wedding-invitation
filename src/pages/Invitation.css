@@ -749,15 +749,15 @@
 }
 
 /*
-  Canva рисува тъмни ленти във viewer-а; отвън iframe не се махат. Тези блокове ги покриват.
-  z-index над iframe + translateZ(0) за стабилен ред в Safari/Chrome.
+  Горна маска: само тънка ивица за тъмния UI на Canva. По-висок слой изрязваше имената/заглавията в дизайна.
+  Долна: по-висока, защото там обикновено е навигацията на прегледа, не текст на поканата.
 */
 .canva-top-cover {
   position: absolute;
   top: 0;
   left: -3px;
   width: calc(100% + 6px);
-  height: max(104px, calc(92px * var(--canva-mobile-zoom)));
+  height: clamp(36px, 9vmin, 48px);
   z-index: 100;
   transform: translateZ(0);
   pointer-events: none;
@@ -772,7 +772,7 @@
   bottom: 0;
   left: -3px;
   width: calc(100% + 6px);
-  height: max(148px, calc(124px * var(--canva-mobile-zoom)));
+  height: max(112px, calc(88px * var(--canva-mobile-zoom)));
   z-index: 100;
   transform: translateZ(0);
   pointer-events: none;
@@ -780,17 +780,6 @@
   box-shadow: none;
   border: none;
   border-radius: 0 0 8px 8px;
-}
-
-/* Телефон: още по-високи ленти — тъмният UI на Canva расте с pinch/zoom */
-@media (max-width: 768px) {
-  .canva-top-cover {
-    height: max(132px, calc(108px * var(--canva-mobile-zoom)));
-  }
-
-  .canva-bottom-cover {
-    height: max(168px, calc(138px * var(--canva-mobile-zoom)));
-  }
 }
 
 .canva-overlay-button {
