@@ -25,6 +25,8 @@ function Invitation() {
           </div>
         )}
         <div className="canva-embed-container">
+          {/* Над iframe: по-висок слой, за да скрие тъмната лента на Canva (расте при mobile zoom) */}
+          <div className="canva-top-cover" aria-hidden />
           <iframe 
             loading="lazy" 
             className="canva-fullscreen-embed"
@@ -32,10 +34,10 @@ function Invitation() {
             title="Покана за сватба"
             sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
             onLoad={() => setIframeLoaded(true)}
-            style={{ opacity: iframeLoaded ? 1 : 0, transition: 'opacity 0.3s ease' }}
+            style={{ opacity: iframeLoaded ? 1 : 0, transition: 'opacity 0.3s ease', backgroundColor: '#f4f0eb' }}
           />
         </div>
-        {/* Скрива черната лента отдолу от Canva (номера на страници) */}
+        {/* Скрива долната лента от Canva (номера на страници) */}
         <div className="canva-bottom-cover" aria-hidden />
         <button 
           type="button"
