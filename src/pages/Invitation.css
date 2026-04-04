@@ -697,40 +697,40 @@
 }
 
 /*
-  Мобилен zoom: по-едър текст/снимки в Canva; --canva-mobile-zoom се ползва и за маските отгоре/отдолу.
+  Мобилен zoom: по-едър текст в Canva.
+  ВАЖНО: НЕ ползваме width: calc(100%/zoom) — това създаваше тясна централна колона и празни полета отстрани.
+  Пълна ширина + zoom; overflow-x е скрит на body/контейнера.
 */
 @supports (zoom: 1) {
   @media (max-width: 768px) {
     .canva-main-container {
-      --canva-mobile-zoom: 1.46;
-      padding-left: max(10px, env(safe-area-inset-left, 0px));
-      padding-right: max(10px, env(safe-area-inset-right, 0px));
+      --canva-mobile-zoom: 1.22;
+      padding-left: max(0px, env(safe-area-inset-left, 0px));
+      padding-right: max(0px, env(safe-area-inset-right, 0px));
     }
 
     .canva-embed-container {
       zoom: var(--canva-mobile-zoom);
-      width: calc(100% / var(--canva-mobile-zoom));
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 0.65em;
-      margin-bottom: 0.45em;
+      width: 100%;
+      max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 0.25em;
+      margin-bottom: 0.15em;
+      border-radius: 0;
+      box-shadow: none;
     }
   }
 
   @media (max-width: 480px) {
     .canva-main-container {
-      --canva-mobile-zoom: 1.62;
-    }
-
-    .canva-embed-container {
-      margin-top: 0.5em;
-      margin-bottom: 0.35em;
+      --canva-mobile-zoom: 1.3;
     }
   }
 
   @media (max-width: 380px) {
     .canva-main-container {
-      --canva-mobile-zoom: 1.75;
+      --canva-mobile-zoom: 1.38;
     }
   }
 }
@@ -1140,10 +1140,6 @@
 }
 
 @media (max-width: 380px) {
-  .canva-embed-container {
-    border-radius: 0;
-  }
-
   .canva-top-cover {
     border-radius: 0;
   }
