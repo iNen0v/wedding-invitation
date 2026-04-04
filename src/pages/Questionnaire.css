@@ -11,7 +11,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: #f5f5f5;
+  background: #f4f0eb;
   box-sizing: border-box;
 }
 
@@ -66,16 +66,16 @@
   display: block;
   width: 100%;
   padding: 15px;
-  background: #e0e0e0;
-  color: #1a1a1a;
-  border: none;
-  border-radius: 8px;
+  background: linear-gradient(165deg, #faf7f3 0%, #ebe3da 48%, #e0d5cb 100%);
+  color: #3a332e;
+  border: 1px solid rgba(58, 51, 46, 0.14);
+  border-radius: 12px;
   font-size: clamp(1rem, 0.5vw + 0.9rem, 1.05em);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease, color 0.2s ease;
   margin-top: 8px;
-  box-shadow: 0 2px 8px 0 rgba(63, 69, 81, 0.16);
+  box-shadow: 0 4px 16px rgba(58, 51, 46, 0.1);
   font-family: 'Georgia', serif;
   text-transform: none;
   letter-spacing: 0;
@@ -85,13 +85,18 @@
 }
 
 .questionnaire-form-link:hover {
-  background: #d0d0d0;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  color: #2a2420;
+  background: linear-gradient(165deg, #fcf9f6 0%, #f0e8e0 48%, #e6dbd2 100%);
+  box-shadow: 0 6px 20px rgba(58, 51, 46, 0.14);
 }
 
 .questionnaire-form-link:active {
   transform: translateY(1px);
-  background: #c0c0c0;
+  background: #ddd4cb;
+}
+
+.questionnaire-form-link:visited {
+  color: #3a332e;
 }
 
 .back-btn {
@@ -115,7 +120,7 @@
 }
 
 .back-btn:hover {
-  background: #f5f5f5;
+  background: #f8f5f2;
   border-color: #bbb;
   color: #333;
   box-shadow: 0 2px 8px 0 rgba(63, 69, 81, 0.16);
@@ -145,7 +150,7 @@
   }
 
   .subtitle {
-    font-size: clamp(1.02rem, 2.5vw + 0.85rem, 1.125rem);
+    font-size: clamp(1.05rem, 2.8vw + 0.88rem, 1.15rem);
     line-height: 1.68;
   }
 

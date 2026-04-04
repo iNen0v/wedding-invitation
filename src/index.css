@@ -49,12 +49,16 @@ body {
   cursor: default;
 }
 
-/* Мобилни: пълна ширина, скрол отгоре — без „смачкан“ центриран блок; по-голям базов шрифт за четимост */
+/* Мобилни: пълна ширина, скрол отгоре — по-голям базов шрифт (~18px), за да не се налага pinch zoom */
 @media (max-width: 768px) {
+  html {
+    font-size: 112.5%;
+  }
+
   body {
     align-items: flex-start;
-    font-size: 106.25%;
-    line-height: 1.55;
+    font-size: 100%;
+    line-height: 1.58;
   }
 
   #root {
@@ -62,9 +66,15 @@ body {
   }
 }
 
+@media (max-width: 480px) {
+  html {
+    font-size: 118%;
+  }
+}
+
 @media (max-width: 380px) {
-  body {
-    font-size: 100%;
+  html {
+    font-size: 115%;
   }
 }
 

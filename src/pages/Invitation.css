@@ -14,7 +14,7 @@
   min-width: 0;
   min-height: 100vh;
   min-height: 100dvh;
-  background: #f5f5f5;
+  background: #f4f0eb;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
@@ -661,6 +661,7 @@
   left: 0;
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   padding: 0;
   margin: 0;
   overflow-y: auto;
@@ -685,6 +686,34 @@
   cursor: default;
 }
 
+/*
+  Мобилен „луп“ за Canva: дизайнът е фиксиран в iframe и на тесен екран текстът е дребен.
+  zoom + по-тесна ширина запазват пълната видима ширина, но увеличават всичко вътре (~1.18–1.25×).
+*/
+@supports (zoom: 1) {
+  @media (max-width: 768px) {
+    .canva-embed-container {
+      --canva-mobile-zoom: 1.18;
+      zoom: var(--canva-mobile-zoom);
+      width: calc(100% / var(--canva-mobile-zoom));
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .canva-embed-container {
+      --canva-mobile-zoom: 1.22;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .canva-embed-container {
+      --canva-mobile-zoom: 1.25;
+    }
+  }
+}
+
 .canva-fullscreen-embed {
   position: absolute;
   width: 100%;
@@ -706,7 +735,7 @@
   height: 120px;
   z-index: 4000;
   pointer-events: none;
-  background: #f5f5f5;
+  background: #f4f0eb;
   box-shadow: none;
   border: none;
 }
@@ -718,8 +747,8 @@
   transform: translateX(-50%);
   padding: 16px 28px;
   margin: 0;
-  background: linear-gradient(135deg, #66bb6a 0%, #43a047 55%, #2e7d32 100%);
-  color: #fff;
+  background: linear-gradient(165deg, #faf7f3 0%, #ebe3da 48%, #e0d5cb 100%);
+  color: #3a332e;
   cursor: pointer;
   z-index: 10000;
   font-size: 0.95em;
@@ -731,10 +760,10 @@
   min-width: min(100%, 320px);
   max-width: min(600px, calc(100vw - 32px));
   min-height: 52px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
   border-radius: 999px;
   pointer-events: auto;
-  border: none;
+  border: 1px solid rgba(58, 51, 46, 0.14);
   outline: none;
   -webkit-appearance: none;
   appearance: none;
@@ -742,24 +771,25 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  box-shadow: 0 8px 24px rgba(46, 125, 50, 0.35), 0 2px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 22px rgba(58, 51, 46, 0.12), 0 2px 8px rgba(58, 51, 46, 0.06);
   white-space: normal;
   line-height: 1.35;
 }
 
 .canva-overlay-button:hover {
-  color: #fff;
-  box-shadow: 0 10px 28px rgba(46, 125, 50, 0.45), 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #2a2420;
+  background: linear-gradient(165deg, #fcf9f6 0%, #f0e8e0 48%, #e6dbd2 100%);
+  box-shadow: 0 10px 28px rgba(58, 51, 46, 0.16), 0 3px 10px rgba(58, 51, 46, 0.08);
   transform: translateX(-50%) translateY(-2px);
 }
 
 .canva-overlay-button:active {
   transform: translateX(-50%) translateY(0) scale(0.98);
-  box-shadow: 0 4px 16px rgba(46, 125, 50, 0.3);
+  box-shadow: 0 4px 14px rgba(58, 51, 46, 0.12);
 }
 
 .canva-overlay-button:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.9);
+  outline: 3px solid rgba(180, 150, 130, 0.55);
   outline-offset: 3px;
 }
 
