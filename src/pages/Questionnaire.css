@@ -41,20 +41,25 @@
 
 .questionnaire-card h1 {
   text-align: left;
-  color: #333;
+  color: #1a1a1a;
   margin-bottom: 16px;
   font-family: 'Georgia', serif;
-  font-size: 1.8em;
+  font-size: clamp(1.375rem, 2.8vw + 0.85rem, 1.75rem);
   font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  word-wrap: break-word;
 }
 
 .subtitle {
   text-align: left;
-  color: #555;
+  color: #3a3a3a;
   margin-bottom: 28px;
-  font-size: 1em;
-  line-height: 1.6;
+  font-size: clamp(1.02rem, 0.4vw + 0.95rem, 1.0625rem);
+  line-height: 1.65;
   font-weight: 400;
+  overflow-wrap: anywhere;
+  word-wrap: break-word;
 }
 
 .submit-btn {
@@ -62,10 +67,10 @@
   width: 100%;
   padding: 15px;
   background: #e0e0e0;
-  color: #333;
+  color: #1a1a1a;
   border: none;
   border-radius: 8px;
-  font-size: 1em;
+  font-size: clamp(1rem, 0.5vw + 0.9rem, 1.05em);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -93,10 +98,10 @@
   width: 100%;
   padding: 12px 20px;
   background: white;
-  color: #555;
+  color: #3a3a3a;
   border: 1px solid #ddd;
   border-radius: 25px;
-  font-size: 1em;
+  font-size: clamp(0.95rem, 0.4vw + 0.9rem, 1em);
   font-weight: 400;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -122,19 +127,26 @@
 }
 
 @media (max-width: 768px) {
+  .questionnaire-container {
+    align-items: flex-start;
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+
   .questionnaire-card {
-    padding: 30px 20px;
-    margin: auto 0;
+    padding: clamp(1.25rem, 4vw, 1.75rem) clamp(1rem, 4vw, 1.25rem);
+    margin: 0 auto;
+    max-width: 100%;
   }
 
   .questionnaire-card h1 {
-    font-size: 1.5em;
-    line-height: 1.25;
-    word-wrap: break-word;
+    line-height: 1.22;
+    letter-spacing: -0.01em;
   }
 
   .subtitle {
-    font-size: 0.95em;
+    font-size: clamp(1.02rem, 2.5vw + 0.85rem, 1.125rem);
+    line-height: 1.68;
   }
 
   /* По-удобно докосване (≈48px минимум по височина) */
@@ -145,9 +157,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    line-height: 1.35;
   }
 
   .back-btn {
     min-height: 48px;
+    line-height: 1.35;
+  }
+}
+
+@media (max-width: 380px) {
+  .questionnaire-card {
+    padding: 1.15rem 1rem;
+    border-radius: 12px;
   }
 }
