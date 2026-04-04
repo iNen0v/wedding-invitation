@@ -1,24 +1,18 @@
 .questionnaire-container {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
   position: relative;
-  overflow: hidden;
+  /* Не скривай вертикално: на нисък екран картата трябва да се скролва, за да се види бутонът */
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background: #f5f5f5;
-}
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  box-sizing: border-box;
 }
 
 .questionnaire-card {
@@ -48,214 +42,23 @@
 .questionnaire-card h1 {
   text-align: left;
   color: #333;
-  margin-bottom: 30px;
+  margin-bottom: 16px;
   font-family: 'Georgia', serif;
   font-size: 1.8em;
   font-weight: 700;
 }
 
 .subtitle {
-  text-align: center;
+  text-align: left;
   color: #555;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
   font-size: 1em;
   line-height: 1.6;
   font-weight: 400;
 }
 
-.questionnaire-form {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.question-group {
-  padding: 0;
-  background: transparent;
-  border-radius: 0;
-  border: none;
-  transition: all 0.3s ease;
-  box-shadow: none;
-  position: relative;
-  overflow: visible;
-  margin-bottom: 25px;
-}
-
-.question-group h3 {
-  color: #333;
-  margin-bottom: 15px;
-  font-size: 1em;
-  font-family: 'Georgia', serif;
-  font-weight: 600;
-}
-
-
-.hint-text {
-  color: #999 !important;
-  font-size: 0.85em !important;
-  font-style: italic;
-  margin-top: -10px !important;
-  margin-bottom: 15px !important;
-}
-
-.conditional-group {
-  margin-top: 20px;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-}
-
-.radio-group {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.radio-label {
-  display: flex;
-  align-items: center;
-  cursor: default;
-  padding: 12px 20px;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  min-width: 120px;
-  justify-content: center;
-  position: relative;
-  color: #333;
-}
-
-.radio-label:hover {
-  background: #f5f5f5;
-  border-color: #bbb;
-}
-
-.radio-label input[type="radio"]:checked + span {
-  font-weight: 600;
-}
-
-.radio-label:has(input[type="radio"]:checked) {
-  background: #f0f0f0;
-  color: #333;
-  border-color: #ccc;
-}
-
-.radio-label input[type="radio"] {
-  margin-right: 10px;
-  width: 20px;
-  height: 20px;
-  cursor: default;
-  accent-color: #999;
-}
-
-.radio-label input[type="radio"]:checked + span {
-  font-weight: bold;
-}
-
-.input-group {
-  margin-bottom: 20px;
-}
-
-.input-group label {
-  display: block;
-  margin-bottom: 8px;
-  color: #333;
-  font-weight: 400;
-  font-size: 0.95em;
-  font-family: 'Georgia', serif;
-}
-
-.text-input {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1em;
-  transition: all 0.3s ease;
-  font-family: 'Georgia', serif;
-  background: white;
-  box-sizing: border-box;
-  color: #333;
-}
-
-.text-input:focus {
-  outline: none;
-  border-color: #999;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
-}
-
-.text-input::placeholder {
-  color: #999;
-}
-
-.textarea-input {
-  resize: vertical;
-  min-height: 100px;
-  font-family: 'Georgia', serif;
-}
-
-.child-group {
-  margin-top: 25px;
-  padding-top: 25px;
-  padding-bottom: 20px;
-  border-top: 1px solid #e0e0e0;
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 15px;
-}
-
-.child-group:first-of-type {
-  margin-top: 15px;
-}
-
-.child-group h4 {
-  color: #333;
-  margin-bottom: 15px;
-  font-size: 1em;
-  font-family: 'Georgia', serif;
-  font-weight: 600;
-}
-
-
-.remove-guest-btn {
-  padding: 12px 18px;
-  background: #f44336;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  cursor: default;
-  font-size: 1.2em;
-  transition: all 0.3s;
-}
-
-.remove-guest-btn:hover {
-  background: #d32f2f;
-  transform: scale(1.1);
-}
-
-.add-guest-btn {
-  padding: 12px 25px;
-  background: #e0e0e0;
-  color: #333;
-  border: none;
-  border-radius: 25px;
-  cursor: default;
-  font-size: 1em;
-  transition: all 0.3s;
-  width: 100%;
-  margin-top: 10px;
-}
-
-.add-guest-btn:hover {
-  background: #d0d0d0;
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
 .submit-btn {
+  display: block;
   width: 100%;
   padding: 15px;
   background: #e0e0e0;
@@ -264,21 +67,24 @@
   border-radius: 8px;
   font-size: 1em;
   font-weight: 600;
-  cursor: default;
+  cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 20px;
+  margin-top: 8px;
   box-shadow: 0 2px 8px 0 rgba(63, 69, 81, 0.16);
   font-family: 'Georgia', serif;
   text-transform: none;
   letter-spacing: 0;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
 }
 
-.submit-btn:hover {
+.questionnaire-form-link:hover {
   background: #d0d0d0;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
-.submit-btn:active {
+.questionnaire-form-link:active {
   transform: translateY(1px);
   background: #c0c0c0;
 }
@@ -292,7 +98,7 @@
   border-radius: 25px;
   font-size: 1em;
   font-weight: 400;
-  cursor: default;
+  cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 15px;
   font-family: 'Georgia', serif;
@@ -315,67 +121,33 @@
   background: #ebebeb;
 }
 
-.back-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.submit-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.success-message {
-  background: #d4edda;
-  color: #155724;
-  padding: 15px 20px;
-  border-radius: 8px;
-  margin-top: 20px;
-  text-align: center;
-  font-family: 'Georgia', serif;
-  border: 1px solid #c3e6cb;
-  animation: slideDown 0.3s ease-out;
-}
-
-.error-message {
-  background: #f8d7da;
-  color: #721c24;
-  padding: 15px 20px;
-  border-radius: 8px;
-  margin-top: 20px;
-  text-align: center;
-  font-family: 'Georgia', serif;
-  border: 1px solid #f5c6cb;
-  animation: slideDown 0.3s ease-out;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive */
 @media (max-width: 768px) {
   .questionnaire-card {
     padding: 30px 20px;
+    margin: auto 0;
   }
-  
+
   .questionnaire-card h1 {
-    font-size: 1.8em;
+    font-size: 1.5em;
+    line-height: 1.25;
+    word-wrap: break-word;
   }
-  
-  .radio-group {
-    flex-direction: column;
+
+  .subtitle {
+    font-size: 0.95em;
   }
-  
-  .radio-label {
-    width: 100%;
+
+  /* По-удобно докосване (≈48px минимум по височина) */
+  .submit-btn {
+    min-height: 48px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .back-btn {
+    min-height: 48px;
   }
 }
-

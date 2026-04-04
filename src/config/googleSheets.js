@@ -1,3 +1,3 @@
-// Zapier: URL за изпращане на данни от RSVP формата
-// Create Zap → Webhooks by Zapier → Catch Hook → копирай URL тук
-export const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/26734887/uxt1h58/'
+// Линк към Google Forms за RSVP (попълване на въпросника за присъствие)
+export const GOOGLE_FORM_RSVP_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLScKGB5rvDWcMYzqspmWpDlqRPYrfbas_KIQ5l0lON5o4VVxLg/viewform'

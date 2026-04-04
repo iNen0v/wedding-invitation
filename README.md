@@ -6,7 +6,7 @@
 
 - **Покана** – вградена Canva покана на началната страница
 - **Линк към картата** – единствен кликаем елемент на началната страница; отваря Google Maps в нов таб (адресът се задава в конфига)
-- **Въпросник за присъствие** – на `/questionnaire`; данните се изпращат към Zapier
+- **Въпросник за присъствие** – на `/questionnaire`; линк към Google Forms за RSVP
 - **Курсор** – навсякъде е обикновена стрелка (default)
 
 ## Технологии
@@ -17,8 +17,7 @@
 
 В `src/config/googleSheets.js`:
 
-- **ZAPIER_WEBHOOK_URL** – URL от Zapier (Webhooks by Zapier → Catch Hook)
-- **RESTAURANT_MAPS_URL** – пълен линк към Google Maps за ресторанта (за линка „Отвори местоположението в Google Maps“)
+- **GOOGLE_FORM_RSVP_URL** – пълен линк към Google Forms за въпросника за присъствие
 
 ## Стартиране
 
@@ -37,7 +36,7 @@ npm run preview
 ## Маршрути
 
 - `/` и `/invitation` – покана (само линкът към картата е кликаем)
-- `/questionnaire` – формуляр за RSVP (данните отиват в Zapier)
+- `/questionnaire` – линк към Google Forms за RSVP
 
 ## Лиценз
 
