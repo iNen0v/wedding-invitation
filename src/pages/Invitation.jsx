@@ -32,6 +32,8 @@ function Invitation() {
             className="canva-fullscreen-embed"
             src="https://www.canva.com/design/DAG9SwdZIwI/dcVOgO5zWI1pRZglQ8bB5Q/view?embed" 
             title="Покана за сватба"
+            allow="fullscreen"
+            allowFullScreen
             sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
             onLoad={() => setIframeLoaded(true)}
             style={{ opacity: iframeLoaded ? 1 : 0, transition: 'opacity 0.3s ease', backgroundColor: '#f4f0eb' }}
