@@ -9,6 +9,7 @@
 }
 
 .canva-main-container {
+  --canva-mobile-zoom: 1;
   padding: 0;
   margin: 0;
   width: 100%;
@@ -20,6 +21,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   cursor: default;
 }
 
@@ -690,33 +692,45 @@
   overflow: hidden;
   border-radius: 8px;
   will-change: transform;
+  isolation: isolate;
   cursor: default;
 }
 
 /*
-  Мобилен „луп“ за Canva: текстът в iframe е фиксиран — без по-силен zoom пак се налага pinch.
-  По-тесната ширина компенсира zoom-а, за да няма хоризонтален скрол.
+  Мобилен zoom: по-едър текст/снимки в Canva; --canva-mobile-zoom се ползва и за маските отгоре/отдолу.
 */
 @supports (zoom: 1) {
   @media (max-width: 768px) {
+    .canva-main-container {
+      --canva-mobile-zoom: 1.46;
+      padding-left: max(10px, env(safe-area-inset-left, 0px));
+      padding-right: max(10px, env(safe-area-inset-right, 0px));
+    }
+
     .canva-embed-container {
-      --canva-mobile-zoom: 1.32;
       zoom: var(--canva-mobile-zoom);
       width: calc(100% / var(--canva-mobile-zoom));
       margin-left: auto;
       margin-right: auto;
+      margin-top: 0.65em;
+      margin-bottom: 0.45em;
     }
   }
 
   @media (max-width: 480px) {
+    .canva-main-container {
+      --canva-mobile-zoom: 1.62;
+    }
+
     .canva-embed-container {
-      --canva-mobile-zoom: 1.42;
+      margin-top: 0.5em;
+      margin-bottom: 0.35em;
     }
   }
 
   @media (max-width: 380px) {
-    .canva-embed-container {
-      --canva-mobile-zoom: 1.52;
+    .canva-main-container {
+      --canva-mobile-zoom: 1.75;
     }
   }
 }
@@ -727,7 +741,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 0;
   border: none;
   padding: 0;
   margin: 0;
@@ -735,16 +749,17 @@
 }
 
 /*
-  Вътре в .canva-embed-container, над iframe (z-index).
-  Височината трябва да нараства с mobile zoom — иначе черната Canva лента остава видима.
+  Canva рисува тъмни ленти във viewer-а; отвън iframe не се махат. Тези блокове ги покриват.
+  z-index над iframe + translateZ(0) за стабилен ред в Safari/Chrome.
 */
 .canva-top-cover {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: clamp(88px, 16vmin, 120px);
-  z-index: 5;
+  left: -3px;
+  width: calc(100% + 6px);
+  height: max(104px, calc(92px * var(--canva-mobile-zoom)));
+  z-index: 100;
+  transform: translateZ(0);
   pointer-events: none;
   background: #f4f0eb;
   border-radius: 8px 8px 0 0;
@@ -752,19 +767,30 @@
   border: none;
 }
 
-/* Пълно покриване на долната Canva лента / „слайдер“ за страници */
 .canva-bottom-cover {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
-  height: 120px;
-  z-index: 4000;
+  left: -3px;
+  width: calc(100% + 6px);
+  height: max(148px, calc(124px * var(--canva-mobile-zoom)));
+  z-index: 100;
+  transform: translateZ(0);
   pointer-events: none;
   background: #f4f0eb;
   box-shadow: none;
   border: none;
   border-radius: 0 0 8px 8px;
+}
+
+/* Телефон: още по-високи ленти — тъмният UI на Canva расте с pinch/zoom */
+@media (max-width: 768px) {
+  .canva-top-cover {
+    height: max(132px, calc(108px * var(--canva-mobile-zoom)));
+  }
+
+  .canva-bottom-cover {
+    height: max(168px, calc(138px * var(--canva-mobile-zoom)));
+  }
 }
 
 .canva-overlay-button {
@@ -1087,14 +1113,6 @@
     font-size: 1em;
   }
 
-  .canva-top-cover {
-    height: clamp(104px, 22vmin, 160px);
-  }
-
-  .canva-bottom-cover {
-    height: 132px;
-  }
-
   .canva-overlay-button {
     bottom: max(48px, calc(env(safe-area-inset-bottom, 0px) + 36px));
     left: 50%;
@@ -1128,17 +1146,16 @@
 
   .canva-top-cover {
     border-radius: 0;
-    height: clamp(112px, 24vmin, 168px);
+  }
+
+  .canva-bottom-cover {
+    border-radius: 0;
   }
 
   .canva-overlay-button {
     padding: 14px 16px;
     font-size: clamp(0.9rem, 3.2vw + 0.65rem, 0.98rem);
     width: calc(100% - 24px);
-  }
-
-  .canva-bottom-cover {
-    height: 140px;
   }
 }
 

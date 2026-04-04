@@ -25,7 +25,6 @@ function Invitation() {
           </div>
         )}
         <div className="canva-embed-container">
-          {/* Над iframe: по-висок слой, за да скрие тъмната лента на Canva (расте при mobile zoom) */}
           <div className="canva-top-cover" aria-hidden />
           <iframe 
             loading="lazy" 
@@ -38,9 +37,9 @@ function Invitation() {
             onLoad={() => setIframeLoaded(true)}
             style={{ opacity: iframeLoaded ? 1 : 0, transition: 'opacity 0.3s ease', backgroundColor: '#f4f0eb' }}
           />
+          {/* В същия stacking context като горната маска — иначе iframe понякога рисува отгоре */}
+          <div className="canva-bottom-cover" aria-hidden />
         </div>
-        {/* Скрива долната лента от Canva (номера на страници) */}
-        <div className="canva-bottom-cover" aria-hidden />
         <button 
           type="button"
           className="canva-overlay-button"
